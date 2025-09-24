@@ -1,0 +1,12 @@
+*
+!.gitignore
+!Procfile
+!README.md
+!requirements.txt
+!run.py
+!app
+!app/**
+app/**/__pycache__
+!data
+!data/cities.csv
+!data/data.csv
