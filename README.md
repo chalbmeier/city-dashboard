@@ -8,9 +8,8 @@ The dashboard is running with Google Cloud Run at https://citydashboard-55711483
 ## Project description
 This is a learning project that helped me to understand the structure and layout of Python Dash applications. There are several things that could be improved:
 
- - My CSS skills are beginner-level, and there is potential for optimization.
  - The layout is rather rigid and not optimized for larger and especially not for small mobile screens.
- - There are visual inconsistencies in the layout, such as the formatting of labels.
+ - The layout has a very academic feel and could be improved.
  - The project is not intended to be maintained, so there are no tests and very little code documentation. 
 
 ## Data source
