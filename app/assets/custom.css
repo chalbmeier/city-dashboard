@@ -87,13 +87,13 @@ html, body {
 @media (max-width: 890px) {
   :root {
     --sidebar-peek: 120px;
-    --sidebar-max-height: 80vh;
+    --sidebar-max-height: 70vh;
   }
   @supports (height: 100svh) { :root {
-      --sidebar-max-height: 80svh;
+      --sidebar-max-height: 70svh;
   }}
   @supports (height: 100dvh) { :root {
-      --sidebar-max-height: 80dvh;
+      --sidebar-max-height: 70dvh;
   }}
   .sidebar-wrap { /* state0: closed */
     position: fixed;
@@ -466,7 +466,7 @@ html, body {
 .info-box-overlay {
   display: flex;
   position: fixed;
-  inset: 0;
+  inset: env(safe-area-inset-top) 0 env(safe-area-inset-bottom) 0;
   align-items: flex-end;
   justify-content: center;
   background-color: rgba(0,0,0,0.45);
@@ -482,25 +482,44 @@ html, body {
 }
 
 .info-box-modal {
+  display: flex;
+  flex-direction: column;
   width: var(--sidebar-width);
-  max-height: min(450px, calc(100vh - 24px));
-  overflow: auto;
+  max-height: min(650px, calc(100vh - 10px));
+  overflow: hidden;
   background-color: var(--color7);
   transform: translateY(16px);
   opacity: 0; 
   transition: transform 300ms ease, opacity 300ms ease;
   will-change: transform, opacity;
 }
-@supports (height: 100svh) { 
+@media (max-width: 890px) {
   .info-box-modal {
-    max-height: min(400px, calc(100svh - 24px - env(safe-area-inset-top) - env(safe-area-inset-bottom)));
+    max-height: calc(100% - 10px);
+    overflow: auto;
   }
+}
+/*
+@media (max-width: 890px) {
+  .info-box-modal {
+    max-height: min(380px, calc(100vh - 6px));
+  }
+}
+@supports (height: 100svh) { 
+  @media (max-width: 890px) {
+    .info-box-modal {
+      max-height: min(380px, calc(100svh - 6px - env(safe-area-inset-top) - env(safe-area-inset-bottom)));
+    }
+ }
 }
 @supports (height: 100dvh) {
-  .info-box-modal {
-    max-height: min(400px, calc(100dvh - 24px - env(safe-area-inset-top) - env(safe-area-inset-bottom)));
+  @media (max-width: 890px) {
+    .info-box-modal {
+      max-height: min(380px, calc(100dvh - 6px - env(safe-area-inset-top) - env(safe-area-inset-bottom)));
+    }
   }
 }
+*/
 
 .info-box-overlay.open .info-box-modal {
   transform: translateY(0);
@@ -510,13 +529,18 @@ html, body {
 .info-box-header {
   display: flex;
   align-items: center;
+  flex-wrap: nowrap;
   justify-content: space-between;
   font-size: 14pt;
   font-weight: 600;
+  background-color: var(--color7);
   padding: 20px 26px 6px 26px;
 }
 
 .info-box-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
   font-size: 11pt;
   line-height: 1.5;
   padding: 0 46px 30px 26px;
@@ -532,6 +556,7 @@ html, body {
 }
 
 .info-box-close-btn {
+  flex: 0 0 auto;
   border: none;
   background: transparent;
   font-size: 13pt;
