@@ -4,7 +4,13 @@ from .callbacks import set_callbacks
 from .data import load_geojson_data, load_data
 
 def create_app():
-    app = DashProxy(suppress_callback_exceptions=True)
+    app = DashProxy(
+        suppress_callback_exceptions=True,
+        meta_tags=[{
+            "name": "viewport",
+            "content": "width=device-width, initial-scale=1, viewport-fit=cover"
+        }],  
+    )
     from .layout import layout
     app.layout = layout
 

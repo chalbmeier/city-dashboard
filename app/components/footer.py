@@ -19,7 +19,9 @@ def create_footer():
                 #className="data-info-text",
                 children=[
                     html.Span("Data source: ", className="data-info-title"),
-                    html.Span("European Commission / DG Regional and Urban Policy, Survey on the Quality of Life in European Cities, 2023"),
+                    html.Span("European Commission / DG Regional and Urban Policy, Survey on the Quality of Life in European Cities, 2023."),
+                    html.Br(),
+                    html.Span("Leafleft | © OpenStreetMap contributors.")
                 ],
             ),
             info_box(),
@@ -40,7 +42,7 @@ In line with the official reports, for each indicator I excluded the “don’t 
 
 The data and official reports are available at https://ec.europa.eu/regional_policy/information-sources/maps/quality-of-life_en.
 
-This website’s code is available at https://github.com/chalbmeier. It is not an official EU website, and I’m not associated with an EU institution.
+This website’s code is available at https://github.com/chalbmeier/city-dashboard. It is not an official EU website, and I’m not associated with an EU institution.
 """, link_target="_blank",
         )
 

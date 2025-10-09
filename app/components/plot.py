@@ -40,7 +40,6 @@ def create_plot(city):
         data=[bars, means],
         layout=dict(
             height=GRAPH_HEIGHT,
-            #width=SIDEBAR_WIDTH - 100,
             autosize=True,
             barcornerradius=5,
             showlegend=False,

@@ -3,7 +3,6 @@ from dash import ALL, ctx, Input, no_update, Output, State
 from .components.indicator_info_panel import create_indicator_info_panel
 from .components.map import create_map
 from .components.plot import create_plot
-from .constants import INITIAL_CITY
 from .data import N_INDICATORS
 
 def set_callbacks(app):
@@ -43,7 +42,8 @@ def set_callbacks(app):
             const center_lng = width < 890 ? 6.5 : -20.8 + width/90;
             const center = [center_lat, center_lng];
             const zoom = 3.5 + width/1500;
-            return {center: center, zoom: zoom};
+            const radius = width < 890 ? 10.9 : 9.9;
+            return {center: center, zoom: zoom, radius: radius};
         }
         """,
         Output("map-params", "data"),
@@ -58,7 +58,7 @@ def set_callbacks(app):
     def load_map(params):
         if not params:
             return no_update
-        return create_map(center=params["center"], zoom=params["zoom"])
+        return create_map(center=params["center"], zoom=params["zoom"], radius=params["radius"])
 
     # Update graph if new city was selected
     @app.callback(

@@ -14,14 +14,11 @@ layout = html.Div(
         # Map
         html.Div(
             children=[
-                #create_map(),
                 html.Div(
                     id="map-wrap",
                     className="map-wrap", 
-                    children=[
-                        #html.Div(id="map"), # placeholder
-                        #dl.GeoJSON(id="geojson"), # placeholder
-                    ]),
+                    children=[]
+                ),
                 dcc.Store(id="selected-city-store", data=INITIAL_CITY),
                 dcc.Store(id="last_map_clicks", data=0) # click counter to handle city selection
             ],
@@ -58,13 +55,26 @@ layout = html.Div(
                             ]
                         ),
                         html.Div(
-                            className="plot-wrap plot-wrap-recenter",
+                            className="widget-container",
                             children=[
-                                create_icon_column(),
-                                dcc.Graph(id="bar-plot", config={"displayModeBar": False}),
+                                html.Div(
+                                    className="plot-wrap plot-wrap-recenter",
+                                    children=[
+                                        create_icon_column(),
+                                        dcc.Graph(
+                                            id="bar-plot", 
+                                            config={"responsive": True, "displayModeBar": False}
+                                        ),
+                                    ],
+                                ),
                             ],
                         ),
-                        html.Div(create_indicator_info_panel(0), id="indicator-info-panel-1"),
+                        html.Div(
+                            className="widget-container",
+                            children=[
+                                html.Div(create_indicator_info_panel(0), id="indicator-info-panel-1"),
+                            ],
+                        ),
                         html.Div(
                             className="data-info",
                             children=[

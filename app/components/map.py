@@ -9,7 +9,7 @@ point_to_layer = namespace("pointToLayer")
 style_handle = namespace("styleHandle")
 
 
-def create_map(initial_city=INITIAL_CITY, center=[53, -9.5], zoom=4):
+def create_map(initial_city=INITIAL_CITY, center=[53, -9.5], zoom=4, radius=9.9):
     cities = dl.GeoJSON(
         data=load_geojson_data(),
         id="geojson",
@@ -17,7 +17,7 @@ def create_map(initial_city=INITIAL_CITY, center=[53, -9.5], zoom=4):
         hideout=dict(
             selected_city=initial_city,
             colors=dict(default=COLOR_1, selected=COLOR_2, border=COLOR_3),
-            marker=dict(radius=9.9),
+            marker=dict(radius=radius),
         ), 
         options=dict(pointToLayer=point_to_layer), # convert png markers to vector markers
         style=style_handle

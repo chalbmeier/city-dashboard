@@ -7,8 +7,7 @@
   --color4: #c3ceff;
   --color5: #953d47;
   --color6: #a786ac;
-  --color7: #f7f8ff;
-  --color8: #ebebeb;
+  --color7: #edeff5;
   --icon-color: #333;
   --sidebar-width: clamp(220px, 92vw, 540px); 
   --sidebar-left-col-width: 44px;
@@ -61,6 +60,12 @@ html, body {
   outline: none;
 }
 
+@media (hover: none) and (pointer: coarse) {
+  .leaflet-tooltip {
+    display: none; /* hide map marker labels */
+  }
+}
+
 /* Sidebar container */
 .sidebar-wrap { /* state0: open */
   position: absolute;
@@ -81,11 +86,17 @@ html, body {
 /* Sidebar slides up-down on small screens */
 @media (max-width: 890px) {
   :root {
-    --sidebar-peek: 100px;
+    --sidebar-peek: 120px;
     --sidebar-max-height: 80vh;
   }
+  @supports (height: 100svh) { :root {
+      --sidebar-max-height: 80svh;
+  }}
+  @supports (height: 100dvh) { :root {
+      --sidebar-max-height: 80dvh;
+  }}
   .sidebar-wrap { /* state0: closed */
-    position: absolute;
+    position: fixed;
     inset: auto  0 0 0;
     width: 100vw;
     height: var(--sidebar-max-height);
@@ -107,6 +118,7 @@ html, body {
   padding: 0;
   overflow-y: auto;
   overflow-x: hidden;
+  padding-bottom: calc(6px + env(safe-area-inset-bottom));
 }
 
 /* Sidebar, vertical centerning at at larger screens */
@@ -174,6 +186,11 @@ html, body {
   }
 }
 
+.widget-container {
+  width: 100vh;
+  border-bottom: 1px solid var(--color2);
+}
+
 /* Icons + plot */
 .plot-wrap {
   display: grid;
@@ -187,7 +204,6 @@ html, body {
 .plot-wrap-recenter {
   grid-template-columns: calc(var(--sidebar-left-col-width) - 7px) 1fr; 
   padding: 0px 0 0 0px;
-  border-bottom: 1px solid var(--color2);
 }
 
 .cell-colored {
@@ -265,7 +281,6 @@ html, body {
   align-items: start;
   width: var(--sidebar-width);
   padding: 0 0 10px 0px;
-  border-bottom: 1px solid var(--color2);
 }
 
 .iip-title {
@@ -294,7 +309,8 @@ html, body {
   grid-auto-rows: 1fr; 
   background-color: var(--color7);
   border-radius: 8px; 
-  padding: 10px 0 5px 0;
+  padding: 5px 0 5px 0;
+  margin-top: 40px;
 }
 
 .iip-btn-row {
@@ -307,6 +323,7 @@ html, body {
   border-radius: 4px;
   padding: 1px 0; 
   cursor: pointer;
+  color: var(--icon-color);
 }
 
 .iip-btn-row:hover {
@@ -331,6 +348,7 @@ html, body {
 
 .rank-table {
   padding: 1px;
+  font-size: 14px; /* same as iip-title */
 }
 
 .rank-table, .rank-table * {
@@ -340,9 +358,6 @@ html, body {
 
 .rank-table-row-base {
   display: grid;
-  /*
-  grid-template-columns: 1fr 8fr 4fr;
-  */
   grid-template-columns:
     minmax(3ch, 1fr)
     minmax(0, 8fr)
@@ -358,6 +373,7 @@ html, body {
   cursor: pointer;
   color: inherit;
   font-family: inherit;
+  font: inherit;
 }
 
 .rank-table-row:hover {
@@ -370,7 +386,7 @@ html, body {
 }
 
 .rank-table-row-even {
-  background-color: var(--color8);
+  background-color: var(--color7);
 }
 
 .rank-table-row.rank-table-row-last {
@@ -410,18 +426,18 @@ html, body {
   color: var(--icon-color);
 }
 
-/* Data source info text + box */
-.data-info {
-  font-size: 10pt;
-  padding: 3px 0 10px 0px;
-}
-
+/* Data source info text + box ~ footer*/
 .data-info-grid {
   display: grid;
   grid-template-columns: var(--sidebar-left-col-width) 1fr;
   width: calc(var(--sidebar-width) * var(--widget-width-scale));
   column-gap: 1px;
   align-items: stretch;
+}
+
+.data-info {
+  font-size: 10pt;
+  padding: 3px 0 10px 0px;
 }
 
 .data-info-title {
@@ -467,13 +483,23 @@ html, body {
 
 .info-box-modal {
   width: var(--sidebar-width);
-  height: min(80vh, 720px);
+  max-height: min(450px, calc(100vh - 24px));
   overflow: auto;
   background-color: var(--color7);
   transform: translateY(16px);
   opacity: 0; 
   transition: transform 300ms ease, opacity 300ms ease;
   will-change: transform, opacity;
+}
+@supports (height: 100svh) { 
+  .info-box-modal {
+    max-height: min(400px, calc(100svh - 24px - env(safe-area-inset-top) - env(safe-area-inset-bottom)));
+  }
+}
+@supports (height: 100dvh) {
+  .info-box-modal {
+    max-height: min(400px, calc(100dvh - 24px - env(safe-area-inset-top) - env(safe-area-inset-bottom)));
+  }
 }
 
 .info-box-overlay.open .info-box-modal {
@@ -511,4 +537,5 @@ html, body {
   font-size: 13pt;
   cursor: pointer;
   padding: 4px 8px;
+  color: var(--color3);
 }

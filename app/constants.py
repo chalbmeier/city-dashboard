@@ -18,4 +18,4 @@ COLORS = {
 
 FONTS = "Lato, Helvetica Neue, Helvetica, Arial, Liberation Sans, sans-serif"
 
-INITIAL_CITY = "Praha"
+INITIAL_CITY = "Berlin"
