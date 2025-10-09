@@ -1,9 +1,9 @@
-SIDEBAR_WIDTH = 560  # px
+SIDEBAR_WIDTH = 560 # px
 
 COLOR_BG = "#f9f9f9"
-COLOR_BAR = "rgba(0,124,164,0.9)"  # "#007ca4"
+COLOR_BAR = "rgba(0,124,164,0.9)" # "#007ca4"
 COLOR_1 = "rgba(0,124,164)"
-COLOR_2 = "rgba(191, 88, 138, 1.0)"
+COLOR_2 = "rgba(191, 88, 138, 1.0)" 
 COLOR_2A = "rgba(191, 88, 138, 0.2)"
 COLOR_3 = "rgba(235, 235, 235, 1.0)"
 
@@ -17,3 +17,5 @@ COLORS = {
 }
 
 FONTS = "Lato, Helvetica Neue, Helvetica, Arial, Liberation Sans, sans-serif"
+
+INITIAL_CITY = "Praha"

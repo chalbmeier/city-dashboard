@@ -1,87 +1,80 @@
 from dash import dcc, html
 from .components.footer import create_footer
 from .components.indicator_info_panel import create_indicator_info_panel
-from .components.map import create_map
 from .components.plot import create_icon_column
+from .constants import INITIAL_CITY
 
 
 layout = html.Div(
     children=[
+        # State variables
+        dcc.Location(id="url"), # helper to trigger clientside callbacks at start
+        dcc.Store(id="menu-state", data=True), # initial menu state, data={True, False}
+        dcc.Store(id="map-params", data=None), # update at start up
         # Map
         html.Div(
             children=[
-                create_map(),
-                dcc.Store(
-                    id="last_map_clicks", data=0
-                ),  # click counter to handle city selection
+                #create_map(),
+                html.Div(
+                    id="map-wrap",
+                    className="map-wrap", 
+                    children=[
+                        #html.Div(id="map"), # placeholder
+                        #dl.GeoJSON(id="geojson"), # placeholder
+                    ]),
+                dcc.Store(id="selected-city-store", data=INITIAL_CITY),
+                dcc.Store(id="last_map_clicks", data=0) # click counter to handle city selection
             ],
-            className="map-fill",
         ),
         # Side bar
         html.Div(
-            className="sidebar-wrap",
+            className="sidebar-wrap state0",
             id="sidebar-wrap",
             children=[
                 html.Div(
-                    className="sidebar open",
+                    className="sidebar",
                     id="sidebar",
                     children=[
                         html.Div(
-                            className="sidebar-scroll",
+                            className="title",
                             children=[
-                                html.Div(
-                                    className="title",
-                                    children=[
-                                        html.Span(
-                                            "Quality of Life in European Cities"
-                                        ),
-                                        html.Br(),
-                                        html.Span(
-                                            "Results from an EU Survey",
-                                            className="title-subtitle",
-                                        ),
-                                    ],
-                                ),
-                                html.Div(
-                                    create_indicator_info_panel(0), id="indicator-info-panel-1"
-                                ),
-                                html.Div(
-                                    className="plot-wrap",
-                                    children=[
-                                        html.Div(className="cell-colored"),
-                                        html.Div(
-                                            className="city-title",
-                                            children=[
-                                                html.Span(
-                                                    "City: ", className="city-title-start"
-                                                ),
-                                                html.Span(id="selected-city"),
-                                            ],
-                                        ),
-                                    ],
-                                ),
-                                html.Div(
-                                    className="plot-wrap plot-wrap-recenter",
-                                    children=[
-                                        create_icon_column(),
-                                        dcc.Graph(
-                                            id="bar-plot", config={"displayModeBar": False}
-                                        ),
-                                    ],
-                                ),
-                                html.Div(
-                                    className="data-info",
-                                    children=[
-                                        create_footer(),
-                                    ],
-                                ),
+                                html.Span("Quality of Life in European Cities"),
+                                html.Br(),
+                                html.Span("Results from an EU Survey", className="title-subtitle")
                             ],
                         ),
+                        html.Div(
+                            className="plot-wrap",
+                            children=[
+                                #html.Div(className="cell-colored"),
+                                html.Div(),
+                                html.Div(
+                                    className="city-title",
+                                    children=[
+                                        html.Span("City: ", className="city-title-start"),
+                                        html.Span(id="city-name"),
+                                    ],
+                                ),
+                            ]
+                        ),
+                        html.Div(
+                            className="plot-wrap plot-wrap-recenter",
+                            children=[
+                                create_icon_column(),
+                                dcc.Graph(id="bar-plot", config={"displayModeBar": False}),
+                            ],
+                        ),
+                        html.Div(create_indicator_info_panel(0), id="indicator-info-panel-1"),
+                        html.Div(
+                            className="data-info",
+                            children=[
+                                create_footer(),
+                            ]
+                        )
                     ],
                 ),
-                html.Button("«", id="toggle-btn", className="toggle-btn"),
+                html.Button("", id="toggle-btn", className="toggle-btn state0"),
             ],
         ),
-        dcc.Store(id="menu-open", data=True),  # initial menu state
     ],
 )
