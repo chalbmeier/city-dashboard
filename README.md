@@ -6,7 +6,7 @@ The dashboard is running with Google Cloud Run at https://citydashboard-55711483
 
 
 ## Project description
-This learning project helped me understand how to build browser-based dashboards with Python Dash. The layout is not perfect, and the code includes little documentation since the project is not intended to be maintained. Still, it served me well for understanding Dash callbacks and their interaction with JavaScript and CSS. 
+This learning project helped me understand how to build browser-based dashboards with Python Dash. The layout can be improved, and the code includes little documentation since the project is not intended to be maintained. Still, it served me well for understanding Dash callbacks and their interaction with JavaScript and CSS. 
 
 ## Data source
 The dashboard uses data from the *Quality of Life in European Cities* survey conducted by the European Commission / DG Regional and Urban Policy in 2023. The target population was residents aged 15+ in the cities of interest.
